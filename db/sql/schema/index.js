@@ -60,7 +60,7 @@ user_restaurant.belongsTo(user);
 restaurant.hasOne(user_restaurant);
 user_restaurant.belongsTo(restaurant);
 
-db.sync({ force: true})
+db.sync({ force: false})
   .then(() => {
     console.log('Successfully synced database')
     require('../seed.js'); //bulk insert data after done syncing

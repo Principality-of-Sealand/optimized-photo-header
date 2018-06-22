@@ -1,12 +1,13 @@
 const sequelize = require('sequelize');
-const user = process.env.pguser || 'Kevin';
-const pass = process.env.pgpass || '';
-const host = process.env.pghost || 'localhost';
+
+const user = 'arthurmoore';
+const pass = '';
+const host = 'localhost';
 
 
 const db = new sequelize('yelp', user, pass, {
   host: host,
-  dialect: 'postgres',
+  dialect: 'postgres'
 })
 
 db.authenticate()

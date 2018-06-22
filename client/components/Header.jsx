@@ -8,7 +8,7 @@ import MapBox from './mapBox.jsx';
 import Photos from './photos.jsx';
 import ResHeader from './restHeader.jsx';
 
-const dbURL = 'http://ec2-34-201-249-210.compute-1.amazonaws.com:3000'
+const dbURL = 'http://localhost:3000'
 
 
 class Header extends Component {

@@ -26,6 +26,12 @@ router.route('/fetchPhoto')
     res.status(200).send('');
   });
 
+  // write post
+
+  // write put
+
+  // write update
+
 module.exports = {
   router : router
 }
