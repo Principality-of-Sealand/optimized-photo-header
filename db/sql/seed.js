@@ -1,4 +1,4 @@
-const data = require('./schema/data.js');
+// const data = require('./schema/data.js');
 const { db } = require('../');
 
 const users = () => {

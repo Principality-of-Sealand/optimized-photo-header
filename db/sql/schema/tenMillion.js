@@ -1,32 +1,4 @@
-const { user, photo, restaurant } = require('./index');
 const fs = require('fs');
-// const restaurant = db.define('restaurant', {
-//   name: {
-//     type: Sequelize.STRING(250),
-//     allowNull: false
-//   },
-//   address: {
-//     type: Sequelize.STRING(250),
-//     allowNull: false
-//   },
-//   phone_number: {
-//     type: Sequelize.STRING(50),
-//     allowNull: false
-//   },
-//   url: {
-//     type: Sequelize.STRING(250),
-//     allowNull: false
-//   },
-//   google_map: {
-//     type: Sequelize.STRING(2500),
-//     allowNull: false
-//   },
-//   categories: {
-//     type: Sequelize.STRING(50),
-//     allowNull: false
-//   },
-// }, { timestamps: false });
-
 
 const restaurantData = {
   nouns: 'rings knife camp box shade cakes scene soda flame maid cave stick profit duck pet zoo mine mint bikes volcano shirt stream cow things sugar glass tramp iron cause mass join bomb station lettuce prose push north grandmother yard look tin soap partner payment pail distribution air kiss stitch selection mice talk boot request system crime twist weight flag lock pickle teeth writer wind temper pets chicken jail chalk hat meal church ship horn base quicksand calculator expert volleyball quarter spy ticket bridge snakes canvas drop worm rod stone summer hope discovery visitor argument love donkey produce crow women bedroom anger middle copper office chess rhythm fireman division increase dinosaurs actor hot noise interest beginner governor meat letters ghost idea judge time lake destruction wilderness haircut stranger dinner quiet card star connection color kettle believe screw control van quill force wave invention thumb books country use bike jar harmony tax orange girls friend dock swing addition frogs hospital string scarf rail mailbox spiders wren train school fairies reading cemetery ink celery machine pencil fish plane nut sock day fire education basin religion jellyfish dogs oranges regret digestion nerve advertisement cap thought flavor hydrant root market peace whip cats name flower finger bucket boundary toothbrush throat dad car spark picture event hook minute apparatus toad yarn afternoon porter flight cars horse business hands food lamp voyage wealth guitar decision throne arithmetic brother plot pump fog wire pear view tooth grip fowl wound street army smash driving cub song wax show weather carriage thread credit cat shape grain birthday friends development line can stage minister blade end sack baby crayon record thrill person desire wood existence zipper paper mark sponge shelf mountain sign advice industry week scarecrow grandfather tent library pin mom floor suggestion rake receipt protest club need vacation babies bee turkey sidewalk cobweb action head window kittens flock trade letter treatment step pies account belief coil door order holiday twig sail grade magic eye flesh stew way channel low dime memory crook pocket spring mother trip tub rifle coal seat degree cactus badge skirt plastic cellar seashore beef group heat steel sense mist neck bait drain arm pest jewel level knowledge play balance earthquake verse feeling cows point blood servant sneeze marble circle direction power riddle frame approval stem rabbit poison sort kitty corn shake cough bird substance turn number berry dirt sheep bath pollution bag money texture slip pig lip rat rest respect question ducks sound scissors mouth move observation room wash chance sea coach cast self vase branch crack uncle winter sticks humor act frog wool appliance houses rub animal yoke pen boy nest clover hall plough society page behavior test lunchroom distance touch sister roll secretary playground rainstorm pie lumber wing alarm discussion smell scent rule growth competition battle crowd government stop plants condition dolls fruit son error bead mind friction elbow tree caption cake engine bulb match suit art plant current thing plate sheet fork finger edge seed stove effect cable cart reward health giants insurance'.split(' '),
@@ -70,20 +42,45 @@ const addRestaurant = () => {
     'https://maps.googleapis.com/maps/api/staticmap?scale=2&center=34.046899%2C-118.260718&language=None&zoom=15&markers=scale%3A2%7Cicon%3Ahttps%3A%2F%2Fyelp-images.s3.amazonaws.com%2Fassets%2Fmap-markers%2Fannotation_64x86.png%7C34.046899%2C-118.260718&client=gme-yelp&sensor=false&size=286x135&signature=kGEntvluDVpEEcPLEHcq_R0-jZY=',
     restaurantData.categories[randomizer(1,192)]
     ];
-  return restaurant.join('•')
+  return restaurant.join('\t')
 };
 
-const stream = fs.createWriteStream('./../test.csv', {flags:'a'});
+// rid,today,255-677,4456\n
 
+// COPY details(rid, today, price_range, health_score) FROM path delimiter '\t' CSV'
+// 
 
-for(let i = 0; i < 10; i++ ) {
-  stream.write(addRestaurant() + '\n');
-};
+const stream = fs.createWriteStream('./../tenmillion.csv', {flags:'a'});
+const addBunch = (limit, callback) => {
+  let time = new Date()
+  
+  let write = () => {
+    let drained = true;
+    do {
+      limit--;
+      if (limit === 0) {
+        stream.write(addRestaurant() + '\n', callback);
+        console.log('we wrote all to db at ' + time + ' now is ' + new Date());
+      } else {
+        drained = stream.write(addRestaurant() + '\n');
+      }
+    } while (limit > 0 && drained) {
+      limit > 0 && stream.once('drain', write);
+    }
+  }  
+  write();
+}
 
-stream.end()
+//========== CALL FUNCTION TO GENERATE n NUMBER OF ENTRIES TO SCV FILE ===========
+// addBunch(10000000, (err) => {
+//   if(err) console.log(err);
+//   stream.end()
+// });
+//================================================================================
 
 
 module.exports = {
   addRestaurant: addRestaurant,
-  randomizer: randomizer
+  randomizer: randomizer,
+  addBunch: addBunch
 };
