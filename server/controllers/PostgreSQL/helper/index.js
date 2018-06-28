@@ -1,5 +1,5 @@
-const { db } = require('../');
-const {user, photo, restaurant} = require('../sql/schema');
+const { db } = require('../../../../db/sql');
+// const {user, photo, restaurant} = require('../sql/schema');
 const fetchRest = (id, cb) => {
   restaurant.findAll({
     where: {

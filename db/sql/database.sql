@@ -12,7 +12,7 @@ CREATE TABLE restaurants (
   address VARCHAR(255),
   phone_number VARCHAR(255),
   url VARCHAR(255),
-  google_map TEXT,
+  google_map VARCHAR(255),
   categories VARCHAR(255)
 );
 
@@ -28,8 +28,7 @@ DROP TABLE IF EXISTS photos;
 
 CREATE TABLE photos (
   ID SERIAL PRIMARY KEY,
-  url TEXT NOT NULL,
-  description VARCHAR(255),
+  url VARCHAR(255) NOT NULL,
   date_posted VARCHAR(255)
 );
 

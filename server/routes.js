@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const helper = require('../db/helper');
+const helper = require('./controllers/PostgreSQL/helper/index.js');
 
 router.route('/fetchRestaurant/:id')
   .get((req, res) => {

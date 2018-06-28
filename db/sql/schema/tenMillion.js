@@ -14,6 +14,8 @@ const restaurantData = {
 
 const pics = ['https://source.unsplash.com/collection/622216/600x480', 'https://source.unsplash.com/collection/1275949/600x480', 'https://source.unsplash.com/collection/345703/600x480'];
 
+
+//==== 
 const randomizer = (min, max) => {
   return Math.floor((Math.random() * (max - min) + min));
 };
@@ -33,23 +35,33 @@ const randomizer = (min, max) => {
 //   // restaurant.stringify()
 // };
 
-// ==== ADD TO CSV ====
+// ==== ADD TO CSV FILE ====
 
+// ==== ADD RESTAURANT ====
 const addRestaurant = () => {
   let restaurant = 
-    [(randomizer(1,11) < 5 && 'The ') + (randomizer(1,11) > 5 && (restaurantData.adjectives[randomizer(1,500)] + ' ') + (restaurantData.nouns[randomizer(1,500)])),
+    [('The ') + ((restaurantData.adjectives[randomizer(1,500)] + ' ') + (restaurantData.nouns[randomizer(1,500)])),
     ((randomizer(1,10000)) + ' ' + restaurantData.nouns[randomizer(1,500)] + ' ' + restaurantData.address.streets[randomizer(1, 7)] + ' ' + restaurantData.address.city[randomizer(1,400)] + ', ' + restaurantData.address.state[randomizer(1,16)] + ', ' + randomizer(1,10000)),
     ('(' + randomizer(100,999) + ')' + ' - ' + randomizer(100,999) + ' - ' + randomizer(100,999)),
     restaurantData.url[randomizer(1,100)],
-    'https://maps.googleapis.com/maps/api/staticmap?scale=2&center=34.046899%2C-118.260718&language=None&zoom=15&markers=scale%3A2%7Cicon%3Ahttps%3A%2F%2Fyelp-images.s3.amazonaws.com%2Fassets%2Fmap-markers%2Fannotation_64x86.png%7C34.046899%2C-118.260718&client=gme-yelp&sensor=false&size=286x135&signature=kGEntvluDVpEEcPLEHcq_R0-jZY=',
+    'https://bit.ly/2yHGtza',
     restaurantData.categories[randomizer(1,192)]
     ];
   return restaurant.join('\t')
 };
+//====================
 
+// ==== ADD PHOTO ====
 const addPhoto = () => {
-  return pics[randomizer(0,3)];
+  return pics[randomizer(0,3)] + '\t' + (`${randomizer(1,13)}/${randomizer(1,31)}/${randomizer(2011, 2019)}`);
 };
+//===== ADD RESTAURANT PHOTO RELATION ========
+
+const addRestPhoto = () => {
+  return `${randomizer(1, 1000001)}\t${randomizer(1,100001)}`
+}
+
+//===== ADD MANY =====
 
 const addBunch = (limit, fileName, category, callback) => {
   let time = new Date()
@@ -76,18 +88,24 @@ const addBunch = (limit, fileName, category, callback) => {
 }
 
 //========== CALL FUNCTION TO GENERATE n NUMBER OF ENTRIES TO SCV FILE ===========
+
 // restaurants
-// addBunch(10, 'testtry', addRestaurant, (err) => {
-//   if(err) console.log(err);
-//   console.log('done running population function')
-// });
-// photos
-addBunch(10, '10photos', addPhoto, (err) => {
+addBunch(10000000, 'forSury', addRestaurant, (err) => {
   if(err) console.log(err);
   console.log('done running population function')
 });
 
-//this is irrelevant
+// photos
+// addBunch(10000000, '10Mphotos', addPhoto, (err) => {
+//   if(err) console.log(err);
+//   console.log('done running population function')
+// });
+
+//restaurant_photos
+// addBunch(10000000, '10Mrelations', addRestPhoto, (err) => {
+//   if(err) console.log(err);
+//   console.log('done running population function')
+// });
 //================================================================================
 
 

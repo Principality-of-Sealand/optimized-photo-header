@@ -1,3 +1,5 @@
 node_modules
 aws
 *.csv
+10Mphotos.json
+10Mrestaurants.json

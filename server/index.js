@@ -4,6 +4,9 @@ const path = require('path');
 const {router} = require('./routes.js');
 const cors = require('cors');
 const app = express();
+// const db = require('../db/mongoDB');
+
+
 const PORT = process.env.PORT || 3000;
 
 // require('../Gruntfile.js');
@@ -12,8 +15,11 @@ app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
 
 
-// DB
-require('../db');
+// SQL DB
+// require('../db/sql');
+
+// mongoDB
+// require('../db/mongoDB');
 
 // Static
 app.use(express.static(path.join(__dirname, '../client/dist')));
