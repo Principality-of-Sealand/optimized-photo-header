@@ -14,6 +14,8 @@ const restaurantData = {
 
 const pics = ['https://source.unsplash.com/collection/622216/600x480', 'https://source.unsplash.com/collection/1275949/600x480', 'https://source.unsplash.com/collection/345703/600x480'];
 
+
+//==== 
 const randomizer = (min, max) => {
   return Math.floor((Math.random() * (max - min) + min));
 };
@@ -33,27 +35,46 @@ const randomizer = (min, max) => {
 //   // restaurant.stringify()
 // };
 
-// ==== ADD TO CSV ====
+// ==== ADD TO CSV FILE ====
 
-const addRestaurant = () => {
-  let restaurant = 
-    [(randomizer(1,11) < 5 && 'The ') + (randomizer(1,11) > 5 && (restaurantData.adjectives[randomizer(1,500)] + ' ') + (restaurantData.nouns[randomizer(1,500)])),
-    ((randomizer(1,10000)) + ' ' + restaurantData.nouns[randomizer(1,500)] + ' ' + restaurantData.address.streets[randomizer(1, 7)] + ' ' + restaurantData.address.city[randomizer(1,400)] + ', ' + restaurantData.address.state[randomizer(1,16)] + ', ' + randomizer(1,10000)),
-    ('(' + randomizer(100,999) + ')' + ' - ' + randomizer(100,999) + ' - ' + randomizer(100,999)),
-    restaurantData.url[randomizer(1,100)],
-    'https://maps.googleapis.com/maps/api/staticmap?scale=2&center=34.046899%2C-118.260718&language=None&zoom=15&markers=scale%3A2%7Cicon%3Ahttps%3A%2F%2Fyelp-images.s3.amazonaws.com%2Fassets%2Fmap-markers%2Fannotation_64x86.png%7C34.046899%2C-118.260718&client=gme-yelp&sensor=false&size=286x135&signature=kGEntvluDVpEEcPLEHcq_R0-jZY=',
-    restaurantData.categories[randomizer(1,192)]
-    ];
-  return restaurant.join('\t')
-};
+// ==== ADD RESTAURANT ====
+let length = restaurantData.categories.length;
 
-const addPhoto = () => {
-  return pics[randomizer(0,3)];
+const addRestaurant = (x) => {
+  let restaurant = {
+    name: (['The ', ''][randomizer(0,1)] + ((restaurantData.adjectives[randomizer(1,500)] + ' ') + (restaurantData.nouns[randomizer(1,500)]))),
+    address: ((randomizer(1,10000)) + ' ' + restaurantData.nouns[randomizer(1,500)] + ' ' + restaurantData.address.streets[randomizer(1, 7)] + ' ' + restaurantData.address.city[randomizer(1,400)] + ', ' + restaurantData.address.state[randomizer(1,16)] + ', ' + randomizer(1,10000)),
+    phone_number: ('(' + randomizer(100,999) + ')' + ' - ' + randomizer(100,999) + ' - ' + randomizer(100,999)),
+    url: restaurantData.url[randomizer(1,100)],
+    google_map: 'https://bit.ly/2yHGtza',
+    categories: restaurantData.categories[randomizer(1,length)],
+    count: x
+  };
+  return JSON.stringify(restaurant);
 };
+//====================
+
+// ==== ADD PHOTO ====
+const addPhoto = (x) => {
+  let photo = {
+    count: x,
+    date_posted: (`${randomizer(1,13)}/${randomizer(1,31)}/${randomizer(2011, 2019)}`),
+    restaurant_id: randomizer(1, 100000)
+  }
+
+  return JSON.stringify(photo);
+};
+//===== ADD RESTAURANT PHOTO RELATION ========
+
+const addRestPhoto = () => {
+  return `${randomizer(1, 1000001)}\t${randomizer(1,100001)}`
+}
+
+//===== ADD MANY =====
 
 const addBunch = (limit, fileName, category, callback) => {
   let time = new Date()
-  const stream = fs.createWriteStream(`./db/data/${fileName}.csv`, {flags:'a'});
+  const stream = fs.createWriteStream(`./${fileName}.json`, {flags:'a'});
   
   let write = () => {
     let drained = true;
@@ -61,12 +82,12 @@ const addBunch = (limit, fileName, category, callback) => {
       limit--;
       if (limit === 0) {
         // stream.write(addRestaurant() + '\n', callback);
-        stream.write(category() + '\n', callback);
+        stream.write(category(limit) + '\n', callback);
         console.log('we wrote all to db at ' + time + ' now is ' + new Date());
         stream.end()
       } else {
         // drained = stream.write(addRestaurant() + '\n');
-        drained = stream.write(category() + '\n');
+        drained = stream.write(category(limit) + '\n');
       }
     } while (limit > 0 && drained) {
       limit > 0 && stream.once('drain', write);
@@ -76,18 +97,24 @@ const addBunch = (limit, fileName, category, callback) => {
 }
 
 //========== CALL FUNCTION TO GENERATE n NUMBER OF ENTRIES TO SCV FILE ===========
+
 // restaurants
-// addBunch(10, 'testtry', addRestaurant, (err) => {
-//   if(err) console.log(err);
-//   console.log('done running population function')
-// });
-// photos
-addBunch(10, '10photos', addPhoto, (err) => {
+addBunch(10000000, '10Mrestaurants', addRestaurant, (err) => {
   if(err) console.log(err);
   console.log('done running population function')
 });
 
-//this is irrelevant
+// photos
+addBunch(10000000, '10Mphotos', addPhoto, (err) => {
+  if(err) console.log(err);
+  console.log('done running population function')
+});
+
+//restaurant_photos
+// addBunch(10000000, '10Mrelations', addRestPhoto, (err) => {
+//   if(err) console.log(err);
+//   console.log('done running population function')
+// });
 //================================================================================
 
 
