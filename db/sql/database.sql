@@ -37,13 +37,6 @@ DROP TABLE IF EXISTS rest_photos;
 CREATE TABLE rest_photos (
   ID SERIAL PRIMARY KEY,
   rest_id INT REFERENCES restaurants(ID),
-  photo_id INT REFERENCES photos(ID)
-);
-
-DROP TABLE IF EXISTS user_photos;
-
-CREATE TABLE user_photos (
-  ID SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(ID),
   photo_id INT REFERENCES photos(ID)
 );

@@ -15,9 +15,19 @@ db.connect()
     //========== POPULATE DATABASE ON CONNECTION (ONCE, THEN COMMENT OUT) ==========
     let start = new Date();
     console.log('we have connected to an optimized database' + start);
-    // db.query(`COPY restaurants(name,address,phone_number,url,google_map,categories) FROM '/Users/arthurmoore/GitHub/Sealand-Welp-optimized-photo-header/db/data/forSury.csv' delimiter '\t' CSV`)
-    // // // db.query(`COPY photos(url, date_posted) FROM '/Users/arthurmoore/GitHub/Sealand-Welp-optimized-photo-header/db/data/10Mphotos.csv' delimiter '\t' CSV`)
-    // // db.query(`COPY rest_photos(rest_id, photo_id) FROM '/Users/arthurmoore/GitHub/Sealand-Welp-optimized-photo-header/db/data/10Mrelations.csv' delimiter '\t' CSV`)
+
+    //========== POPULATE RESTAURANTS ===========
+    // db.query(`COPY restaurants(name,address,phone_number,url,google_map,categories) FROM '/Users/arthurmoore/GitHub/Sealand-Welp-optimized-photo-header/db/sql/data/restaurants.csv' delimiter '\t' CSV`)
+    
+    //========== POPULATE PHOTOS ===========
+    // db.query(`COPY photos(url, date_posted) FROM '/Users/arthurmoore/GitHub/Sealand-Welp-optimized-photo-header/db/sql/data/photos.csv' delimiter '\t' CSV`)
+    
+    //========== POPULATE USERS ===========
+    // db.query(`COPY users(username, profile_pic) FROM '/Users/arthurmoore/GitHub/Sealand-Welp-optimized-photo-header/db/sql/data/users.csv' delimiter '\t' CSV`)
+    
+    //========== POPULATE RELATIONS ===========
+    // db.query(`COPY rest_photos(rest_id, user_id, photo_id) FROM '/Users/arthurmoore/GitHub/Sealand-Welp-optimized-photo-header/db/sql/data/relations.csv' delimiter '\t' CSV`)
+    
     // .then(() => {
     //   console.log('we have successfully added 10 million in ' + (start.getTime() - new Date().getTime()) + ' miliseconds \n');
     // })
@@ -31,4 +41,3 @@ db.connect()
 module.exports = {
   db
 }
-

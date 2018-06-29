@@ -1,10 +1,9 @@
 const express = require('express');
 const parser = require('body-parser');
 const path = require('path');
-const {router} = require('./routes.js');
+const {router} = require('./router');
 const cors = require('cors');
 const app = express();
-// const db = require('../db/mongoDB');
 
 
 const PORT = process.env.PORT || 3000;
@@ -16,7 +15,7 @@ app.use(parser.urlencoded({extended: true}));
 
 
 // SQL DB
-// require('../db/sql');
+require('../db/sql');
 
 // mongoDB
 // require('../db/mongoDB');
