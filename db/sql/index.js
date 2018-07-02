@@ -1,6 +1,6 @@
 //========== CREATE DATABASE USING POSGRES FOR NODE.JS ==========
-const { Client } = require('pg');
-const db = new Client({
+const { Pool } = require('pg');
+const db = new Pool({
   host: 'localhost',
   port: '5432',
   database: 'yelp',

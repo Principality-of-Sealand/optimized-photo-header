@@ -4,13 +4,9 @@ const fetchAll = (req, res) => {
   // res.send('in controller')
   db.query('SELECT * FROM restaurants')
     .then((data) => {
-      console.log('Fetching all restaurants...');
+      // console.log('Fetching all restaurants...');
       res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Fetched all restaurants'
-        });
+        .send(data);
     })
     .catch(err => console.log('There was an error fetching all restaurants.')); 
 };
@@ -19,29 +15,20 @@ const fetchOne = (req, res) => {
   const restID = [req.params.id];
   db.query('select * from restaurants where id = $1', restID)
   .then((data) => {
-    console.log('Fetching restaurant info...');
+    // console.log('Fetching restaurant info...');
       res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Successfully fetched restaurant info'
-        });
+        .send(data);
     })
     .catch(err => console.log('Error in fetching single restaurant info'));
 };
 
 const fetchAllByCategory = (req, res) => {
   const category = [req.params.category];
-  console.log(req.params)
   db.query('select * from restaurants where categories = $1', category)
   .then((data) => {
-      console.log('Fetching restaurants by category...');
+      // console.log('Fetching restaurants by category...');
       res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Successfully fetched all restaurants by category'
-        });
+        .send(data);
     })
     .catch(err => console.log('Error in fetching restaurants by category'));
 };

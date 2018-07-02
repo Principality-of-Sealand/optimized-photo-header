@@ -1753,15 +1753,17 @@ var Header = function (_Component) {
       url: '',
       google_map: '',
       categories: [],
-      actions: ['Add Photo', 'Share', 'Save']
-    };
-    return _this;
+      actions: ['Add Photo', 'Share', 'Save'],
+      photos: []
+      // this.getRestaurant = this.getRestaurant().bind(this);
+    };return _this;
   }
 
   _createClass(Header, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.getRestaurant(4);
+      var rid = Math.floor(Math.random() * (9999999 - 9900000) + 9900000);
+      this.getRestaurant(rid);
     }
   }, {
     key: 'getRestaurant',
@@ -1770,15 +1772,20 @@ var Header = function (_Component) {
 
       // axios.get(dbURL + '/api/fetchRestaurant/' + id)
       _axios2.default.get(dbURL + '/api/fetchRestaurant/' + id).then(function (res) {
-        var data = res.data;
-        // console.log(data);
+        var data = res.data.data.rows[0];
         _this2.setState({
           name: data.name,
           address: data.address,
           phone: data.phone_number,
           url: data.url,
           google_map: data.google_map,
-          categories: data.categories
+          categories: [data.categories]
+        });
+        _axios2.default.get(dbURL + '/api/fetchPhoto/' + id).then(function (res) {
+          var pics = res.data.rows;
+          _this2.setState({
+            photos: pics
+          });
         });
       }).catch(function (err) {
         console.log('Err in getRestaurant: ', err);

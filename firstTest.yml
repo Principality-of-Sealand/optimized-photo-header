@@ -1,0 +1,42 @@
+config:
+  target: "http://localhost:3000/api"
+
+  http: 
+    - pool: 10
+
+  phases:
+    # - duration: 20
+    #   arrivalRate: 20
+    - duration: 60
+      arrivalRate: 50
+    # - duration: 30
+    #   arrivalRate: 130 
+
+  # variables: 
+  #   ids:
+  #       - ["9910100"]
+  #       - ["9910200"]
+  #       - ["9910300"]
+  #       - ["9910400"]
+  #       - ["9910500"]
+  #       - ["9910600"]
+  #       - ["9910700"]
+  #       - ["9910800"]
+  #       - ["9910900"]
+  #       - ["9915100"]
+  #       - ["9916100"]
+  #       - ["9917100"]
+  #       - ["9918100"]
+  #       - ["9990100"]
+
+scenarios:
+  - flow:
+    - loop:
+      - get:
+          url: "/fetchRestaurant/9999900"
+      # over: ids
+      - get:
+          url: "/fetchPhoto/9999900"
+      count: 10
+      # - get: 
+      #     url: "/api/fetchPhoto/4"

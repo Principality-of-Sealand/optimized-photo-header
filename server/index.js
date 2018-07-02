@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const parser = require('body-parser');
 const path = require('path');
@@ -6,7 +7,7 @@ const cors = require('cors');
 const app = express();
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // require('../Gruntfile.js');
 app.use(cors());

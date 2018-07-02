@@ -24,27 +24,36 @@ class Header extends Component {
       google_map: '',
       categories: [],
       actions: ['Add Photo', 'Share', 'Save'],
+      photos: []
     }
+    // this.getRestaurant = this.getRestaurant().bind(this);
   }
 
   componentWillMount() {
-    this.getRestaurant(4);
+    const rid = Math.floor((Math.random() * (9999999 - 9900000) + 9900000));
+    this.getRestaurant(rid)
   }
 
   getRestaurant(id) {
     // axios.get(dbURL + '/api/fetchRestaurant/' + id)
     axios.get(dbURL + '/api/fetchRestaurant/' + id)
       .then(res => {
-        const data = res.data;
-        // console.log(data);
+        const data = res.data.data.rows[0];
         this.setState({
           name: data.name,
           address: data.address,
           phone: data.phone_number,
           url: data.url,
           google_map: data.google_map,
-          categories: data.categories
+          categories: [data.categories]
         })
+        axios.get(dbURL + '/api/fetchPhoto/' + id)
+          .then(res => {
+            const pics = res.data.rows;
+            this.setState({
+              photos: pics
+            })
+          })
       })
       .catch(err => {
         console.log('Err in getRestaurant: ', err);
