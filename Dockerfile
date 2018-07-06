@@ -1,20 +1,8 @@
-FROM node:carbon
-
-# Create app directory
-WORKDIR /
-
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+FROM node:10-alpine
+WORKDIR ./welp
 COPY package*.json ./
+RUN npm install && apk update && apk add bash && apk add vim
 
-RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
-
-# Bundle app source
 COPY . .
-
 EXPOSE 3000
-
-CMD [ "node", "./server/index.js" ]
+CMD ["npm", "start"]

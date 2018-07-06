@@ -8,7 +8,7 @@ import MapBox from './mapBox.jsx';
 import Photos from './photos.jsx';
 import ResHeader from './restHeader.jsx';
 
-const dbURL = 'http://localhost:3000'
+const dbURL = 'http://ec2-35-171-19-239.compute-1.amazonaws.com';
 
 
 class Header extends Component {
@@ -38,7 +38,8 @@ class Header extends Component {
     // axios.get(dbURL + '/api/fetchRestaurant/' + id)
     axios.get(dbURL + '/api/fetchRestaurant/' + id)
       .then(res => {
-        const data = res.data.data.rows[0];
+        console.log('data', res,data)
+        const data = res.data.rows[0];
         this.setState({
           name: data.name,
           address: data.address,

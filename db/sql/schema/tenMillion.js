@@ -87,10 +87,10 @@ const addBunch = (limit, fileName, category, callback) => {
 // });
 
 //restaurant_photos
-addBunch(10000000, 'relations', addRestPhoto, (err) => {
-  if(err) console.log(err);
-  console.log('done running population function')
-});
+// addBunch(10000000, 'relations', addRestPhoto, (err) => {
+//   if(err) console.log(err);
+//   console.log('done running population function')
+// });
 
 //users
 // addBunch(10000000, 'users', addUser, (err) => {

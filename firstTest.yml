@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:3000/api"
+  target: "ec2-35-171-19-239.compute-1.amazonaws.com"
 
   http: 
     - pool: 10
@@ -8,7 +8,7 @@ config:
     # - duration: 20
     #   arrivalRate: 20
     - duration: 60
-      arrivalRate: 50
+      arrivalRate: 20
     # - duration: 30
     #   arrivalRate: 130 
 
@@ -33,10 +33,10 @@ scenarios:
   - flow:
     - loop:
       - get:
-          url: "/fetchRestaurant/9999900"
+          url: "/api/fetchRestaurant/9999900"
       # over: ids
       - get:
-          url: "/fetchPhoto/9999900"
+          url: "/api/fetchPhoto/9999900"
       count: 10
       # - get: 
       #     url: "/api/fetchPhoto/4"

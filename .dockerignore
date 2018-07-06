@@ -1,4 +1,9 @@
 node_modules
-aws
-npm-debug.log
-data
+db/mongoDB
+db/docker-configs
+db/sql/data
+db/sql/schema
+ecs-configs
+server/controllers/mongoDB
+server/controllers/PostgreSQL/helper
+.git

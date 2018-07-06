@@ -1,0 +1,13 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres:10-alpine
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: yelp
+    ports:
+      - "5432:5432" 

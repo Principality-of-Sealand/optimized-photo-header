@@ -1734,7 +1734,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var dbURL = 'http://localhost:3000';
+var dbURL = 'http://ec2-35-171-19-239.compute-1.amazonaws.com';
 
 var Header = function (_Component) {
   _inherits(Header, _Component);
@@ -1772,7 +1772,8 @@ var Header = function (_Component) {
 
       // axios.get(dbURL + '/api/fetchRestaurant/' + id)
       _axios2.default.get(dbURL + '/api/fetchRestaurant/' + id).then(function (res) {
-        var data = res.data.data.rows[0];
+        console.log('data', res, data);
+        var data = res.data.rows[0];
         _this2.setState({
           name: data.name,
           address: data.address,

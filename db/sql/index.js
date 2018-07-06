@@ -1,11 +1,10 @@
 //========== CREATE DATABASE USING POSGRES FOR NODE.JS ==========
 const { Pool } = require('pg');
 const db = new Pool({
-  host: 'localhost',
-  port: '5432',
+  user: 'postgres',
+  host: '54.86.116.225',
   database: 'yelp',
-  user: 'arthurmoore',
-  password: ''
+  password: 'docker'
 });
 
 //========== ESTABLISH CONNECTION TO A DATABASE ==========
